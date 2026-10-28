@@ -1,0 +1,3 @@
+[*.cs]
+# Treat all nullable reference type analysis warnings as errors
+dotnet_analyzer_diagnostic.severity.nullable = error

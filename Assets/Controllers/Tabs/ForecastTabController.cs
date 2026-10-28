@@ -10,19 +10,23 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
+#nullable enable
+
 namespace Assets.Controllers.Tabs
 {
 	public class ForecastTabController : MonoBehaviour, IController
 	{
 		[Inject]
-		IRequestService _requestService;
+		IRequestService RequestService;
 
 		[SerializeField]
-		ForecastView ForecastView;
+		APISettings APISettings;
 
-		ForecastModel Model = new();
+		[SerializeField]
+		ForecastView? ForecastView = null;
 
-		CancellationTokenSource CancellationToken;
+		private readonly ForecastModel Model = new();
+		private readonly CancellationTokenSource CancellationToken = new();
 
 		void Awake()
 		{
@@ -31,10 +35,9 @@ namespace Assets.Controllers.Tabs
 
 		void Start()
 		{
-			CancellationToken = new CancellationTokenSource();
 			_ = RepeatSeconds(2.0f, CancellationToken.Token);
 
-			ForecastView.SetLoadingCircleVisible(true);
+			ForecastView?.SetLoadingCircleVisible(true);
 		}
 		void OnDestroy()
 		{
@@ -44,19 +47,25 @@ namespace Assets.Controllers.Tabs
 
 		async Task RequestForecast()
 		{
-			var request = await _requestService
-				.SendRequest("https://api.weather.gov/gridpoints/TOP/32,81/forecast", CancellationToken.Token);
+			var request = await RequestService
+				.SendRequest("", CancellationToken.Token);
 
 			CancellationToken.Token.ThrowIfCancellationRequested();
 
 			var res = JsonSerializer.Deserialize<ForecastData>(request);
+
+			if (res == null)
+			{
+				return;
+			}
+
 			var period = res.properties.periods.First();
 
 			Model.UpdateForecastText($"{period.name}: {period.temperature}{period.temperatureUnit}");
 
 			if (!string.Equals(Model.IconUri, period.icon, StringComparison.OrdinalIgnoreCase))
 			{
-				var sprite = await _requestService
+				var sprite = await RequestService
 					.DownloadImage(period.icon, CancellationToken.Token);
 
 				Model.UpdateForecastIcon(period.icon, sprite);

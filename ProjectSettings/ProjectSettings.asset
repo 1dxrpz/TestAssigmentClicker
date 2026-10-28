@@ -835,7 +835,9 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   webProgressiveAssetLoading: 0
   scriptingDefineSymbols: {}
-  additionalCompilerArguments: {}
+  additionalCompilerArguments:
+    Standalone:
+    - -nullable:enable
   platformArchitecture: {}
   scriptingBackend:
     Android: 1

@@ -20,7 +20,7 @@ namespace Assets.Controllers.Tabs
 		IRequestService RequestService;
 
 		[SerializeField]
-		APISettings APISettings;
+		GameSettings GameSettings;
 
 		[SerializeField]
 		ForecastView? ForecastView = null;
@@ -48,7 +48,7 @@ namespace Assets.Controllers.Tabs
 		async Task RequestForecast()
 		{
 			var request = await RequestService
-				.SendRequest(APISettings.ForecastAPI, CancellationToken.Token);
+				.SendRequest(GameSettings.ForecastAPI, CancellationToken.Token);
 
 			CancellationToken.Token.ThrowIfCancellationRequested();
 

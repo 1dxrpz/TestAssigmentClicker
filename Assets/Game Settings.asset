@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6967be74fdb42e34c8bccf489fe62303, type: 3}
-  m_Name: APISettings
+  m_Name: Game Settings
   m_EditorClassIdentifier: Assembly-CSharp::APISettings
   ForecastAPI: https://api.weather.gov/gridpoints/TOP/32,81/forecast
   DogAPI: 
+  EnergyPerIteration: 10
+  IterationTimeInSeconds: 5
+  MaxEnergy: 1000
+  StartEnergy: 50

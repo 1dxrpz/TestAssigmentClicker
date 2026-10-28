@@ -48,7 +48,7 @@ namespace Assets.Controllers.Tabs
 		async Task RequestForecast()
 		{
 			var request = await RequestService
-				.SendRequest("", CancellationToken.Token);
+				.SendRequest(APISettings.ForecastAPI, CancellationToken.Token);
 
 			CancellationToken.Token.ThrowIfCancellationRequested();
 

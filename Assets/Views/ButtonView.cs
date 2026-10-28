@@ -22,19 +22,16 @@ namespace Assets.Views
 		[SerializeField] AudioClip PressedAudio;
 		[SerializeField] AudioClip ReleasedAudio;
 
-		public event Action OnButtonPressed;
-		public event Action OnButtonReleased;
+		public event Action<bool> OnButtonStateChanged;
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			SetPressed(true);
-			OnButtonPressed?.Invoke();
+			OnButtonStateChanged?.Invoke(true);
 		}
 
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			SetPressed(false);
-			OnButtonReleased?.Invoke();
+			OnButtonStateChanged?.Invoke(false);
 		}
 
 		protected void Start()
@@ -52,7 +49,7 @@ namespace Assets.Views
 				RawImageComponent.texture = Texture;
 		}
 
-		void SetPressed(bool isPressed)
+		public void SetPressed(bool isPressed)
 		{
 			RawImageComponent.uvRect = isPressed ? PressedOffset : ReleasedOffset;
 			AudioSource.PlayOneShot(isPressed ? PressedAudio : ReleasedAudio);

@@ -11,6 +11,14 @@ namespace Assets.Models
 		public event Action<int> OnEnergyChanged;
 		public event Action<int> OnCurrencyChanged;
 
+		public bool ButtonState { get; set; }
+		public event Action OnButtonClicked;
+
+		public void ClickButton()
+		{
+			OnButtonClicked?.Invoke();
+		}
+
 		public void SetMaxEnergy(int value)
 		{
 			MaxEnergy = Math.Clamp(value, 0, value);
@@ -27,7 +35,7 @@ namespace Assets.Models
 		public void SetEnergy(int value)
 		{
 			value = Math.Clamp(value, 0, MaxEnergy);
-			if (Energy <= 0 || value == Energy) return;
+			if (value == Energy) return;
 			Energy = value;
 			OnEnergyChanged?.Invoke(Energy);
 		}

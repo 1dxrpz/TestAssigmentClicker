@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::APISettings
   ForecastAPI: https://api.weather.gov/gridpoints/TOP/32,81/forecast
   DogAPI: 
-  EnergyPerIteration: 10
-  IterationTimeInSeconds: 5
   MaxEnergy: 1000
-  StartEnergy: 50
+  StartEnergy: 0
+  EnergyAutogainAmount: 10
+  EnergyAutogainDuration: 10
+  AutoclickDuration: 3
+  ClickEnergyCost: 1
+  CurrencyPerClick: 1

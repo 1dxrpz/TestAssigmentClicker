@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc057b60eb0fb8447a81e17fe929a92c, type: 2}
   m_sharedMaterial: {fileID: 4422195662668611458, guid: dc057b60eb0fb8447a81e17fe929a92c, type: 2}
@@ -1078,7 +1078,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 78.83907, y: 25.401386, z: 109.32434, w: 26.81695}
+  m_margin: {x: 80.271515, y: 25.401386, z: 16.216537, w: 26.81695}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1990,6 +1990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Controllers.Tabs.ClickerTabController
   ClickerView: {fileID: 76902940}
+  ButtonView: {fileID: 1685048644}
   GameSettings: {fileID: 11400000, guid: be6f163461b14184f8ffef38a25da60d, type: 2}
 --- !u!4 &996357714
 Transform:
@@ -2870,6 +2871,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2071350962}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1685048644 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8165327389203454131, guid: d1c674bb0eecc7a49bd3f2dbd27dcf5f, type: 3}
+  m_PrefabInstance: {fileID: 822463646}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111374db1ca782b4ba2fb0c00993007e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonView
 --- !u!1 &1706390992
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,7 +3317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc057b60eb0fb8447a81e17fe929a92c, type: 2}
   m_sharedMaterial: {fileID: 4422195662668611458, guid: dc057b60eb0fb8447a81e17fe929a92c, type: 2}
@@ -3371,7 +3383,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 25.667435, y: 25.401386, z: 172.66238, w: 28.054924}
+  m_margin: {x: 27.099838, y: 25.401386, z: 65.8927, w: 28.054924}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

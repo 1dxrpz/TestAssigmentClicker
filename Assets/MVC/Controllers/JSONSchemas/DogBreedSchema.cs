@@ -14,6 +14,7 @@ namespace Assets.MVC.Controllers.JSONSchemas
 	public class DogData
 	{
 		public BreedAttributes attributes { get; set; }
+		public string id { get; set; }
 	}
 	
 	[Serializable]

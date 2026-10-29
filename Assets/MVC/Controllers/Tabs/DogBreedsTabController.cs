@@ -69,14 +69,13 @@ namespace Assets.Controllers.Tabs
 
 			breed.SetLoadingCircleVisible(true);
 
+			DogBreedSchema fetchedData = null;
+
 			try
 			{
-				await Awaitable.WaitForSecondsAsync(2, token);
-
 				token.ThrowIfCancellationRequested();
-
-				Debug.Log(data.attributes.name);
-				Debug.Log(data.attributes.description);
+				// ?? тут не обязательно подтягивать по id, потому, что /breeds уже содержит нужную информацию
+				fetchedData = await GetBreedById(data.id, _breedFetchCts);
 			}
 			catch (OperationCanceledException)
 			{
@@ -89,11 +88,19 @@ namespace Assets.Controllers.Tabs
 			}
 			finally
 			{
-				if (_breedFetchCts != null && !token.IsCancellationRequested)
+				if (_breedFetchCts != null &&
+					!token.IsCancellationRequested &&
+					fetchedData != null)
 				{
-					breed.SetLoadingCircleVisible(false);
+					ShowInfoPopup(fetchedData);
 				}
+				breed.SetLoadingCircleVisible(false);
 			}
+		}
+
+		private void ShowInfoPopup(DogBreedSchema fetchedData)
+		{
+			throw new NotImplementedException();
 		}
 
 		private void OnTabChanged(TabPageView view)

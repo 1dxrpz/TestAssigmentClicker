@@ -1,6 +1,7 @@
 ﻿using Assets.Controllers.Interfaces;
 using Assets.Models;
 using Assets.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Assets.Controllers
 
 		[SerializeField]
 		Dictionary<TabButtonView, TabPageView> Tabs = new();
+
+		public event Action<TabPageView> OnTabChanged;
 
 		private void Awake()
 		{
@@ -37,6 +40,12 @@ namespace Assets.Controllers
 				var value = index == i;
 				v.Key.SetSelected(value);
 				v.Value.SetPageVisible(value);
+
+				if (value)
+				{
+					OnTabChanged?.Invoke(v.Value);
+					v.Key.PlaySelectTabSound();
+				}
 				return v;
 			}).ToList();
 		}

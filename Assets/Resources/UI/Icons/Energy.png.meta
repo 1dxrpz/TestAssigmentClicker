@@ -115,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger_0
+      name: Energy
       rect:
         serializedVersion: 2
         x: 0
@@ -123,7 +123,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ed903d76783ec4f4a9198ec73a87983a
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Software_Power_Electricity_Battery_Thunder_Lightning_Bolt_Zap_Danger_0: 1920152053624793124
+      Energy: 1920152053624793124
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

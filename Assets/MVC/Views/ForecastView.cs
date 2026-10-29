@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Assets.Views
 {
-	internal class ForecastView : MonoBehaviour
+	internal class ForecastView : TabPageView
 	{
 		[SerializeField]
 		GameObject ForecastWrapper;

@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(RectTransform))]
 public class UIParticle : MonoBehaviour
@@ -45,4 +46,6 @@ public class UIParticle : MonoBehaviour
 		if (Elapsed >= Lifetime)
 			Destroy(gameObject);
 	}
+
+	public class UIParticleFactory : PlaceholderFactory<UIParticle> { }
 }

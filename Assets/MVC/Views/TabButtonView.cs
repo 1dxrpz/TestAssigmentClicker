@@ -37,7 +37,10 @@ namespace Assets.Views
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			OnTabClicked?.Invoke();
+		}
 
+		public void PlaySelectTabSound()
+		{
 			var count = AudioClips.Count;
 			if (count != 0)
 			{

@@ -23,34 +23,50 @@ namespace Assets.Controllers.Tabs
 		GameSettings GameSettings;
 
 		[SerializeField]
-		ForecastView? ForecastView = null;
+		ForecastView ForecastView;
+
+		[Inject]
+		TabController TabController;
 
 		private readonly ForecastModel Model = new();
-		private readonly CancellationTokenSource CancellationToken = new();
+		private CancellationTokenSource? CancellationToken;
 
 		void Awake()
 		{
 			Model.OnForecastFetched += OnForecastFetched;
+			TabController.OnTabChanged += OnTabChanged;
 		}
 
-		void Start()
+		private void OnTabChanged(TabPageView view)
 		{
-			_ = RepeatSeconds(2.0f, CancellationToken.Token);
-
-			ForecastView?.SetLoadingCircleVisible(true);
+			if (view.GetType() == typeof(ForecastView))
+			{
+				StartPage();
+			} else
+			{
+				CancellationToken?.Cancel();
+			}
 		}
+
+		void StartPage()
+		{
+			CancellationToken = new();
+			_ = RepeatSeconds(2.0f, CancellationToken.Token);
+			ForecastView.SetLoadingCircleVisible(true);
+		}
+
 		void OnDestroy()
 		{
-			CancellationToken.Cancel();
-			CancellationToken.Dispose();
+			CancellationToken?.Cancel();
+			CancellationToken?.Dispose();
 		}
 
-		async Task RequestForecast()
+		async Task RequestForecast(CancellationToken token)
 		{
 			var request = await RequestService
-				.SendRequest(GameSettings.ForecastAPI, CancellationToken.Token);
+				.SendRequest(GameSettings.ForecastAPI, token);
 
-			CancellationToken.Token.ThrowIfCancellationRequested();
+			token.ThrowIfCancellationRequested();
 
 			var res = JsonSerializer.Deserialize<ForecastData>(request);
 
@@ -66,7 +82,7 @@ namespace Assets.Controllers.Tabs
 			if (!string.Equals(Model.IconUri, period.icon, StringComparison.OrdinalIgnoreCase))
 			{
 				var sprite = await RequestService
-					.DownloadImage(period.icon, CancellationToken.Token);
+					.DownloadImage(period.icon, token);
 
 				Model.UpdateForecastIcon(period.icon, sprite);
 			}
@@ -84,7 +100,7 @@ namespace Assets.Controllers.Tabs
 		{
 			while (!token.IsCancellationRequested)
 			{
-				await RequestForecast();
+				await RequestForecast(token);
 				await Awaitable.WaitForSecondsAsync(seconds);
 			}
 		}

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5b021803c9ab71f49bfb13cbcf05dfdf
+guid: 931156d202305b54e9b8992289f383a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2650522507337658978
-    second: Food_Coffee_Cafe_Tea_0
+      213: 5727549125891877395
+    second: RPG_Coin_Gold_Currency_Money_GP_Dollar_Cent_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -115,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Food_Coffee_Cafe_Tea_0
+      name: Coin
       rect:
         serializedVersion: 2
         x: 0
@@ -123,15 +123,15 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e9d06f892d3773bd0800000000000000
-      internalID: -2650522507337658978
+      spriteID: 31a626a85975c7f40800000000000000
+      internalID: 5727549125891877395
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 81fc438e49b8b0e4cbae281d80f904d0
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Food_Coffee_Cafe_Tea_0: -2650522507337658978
+      Coin: 5727549125891877395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -30,7 +30,7 @@ namespace Assets.Services
 			Container
 				.Bind<TController>()
 				.FromComponentInHierarchy()
-				.AsTransient()
+				.AsSingle()
 				.Lazy();
 
 			return this;

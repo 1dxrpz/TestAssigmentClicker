@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Views
 {
-	internal class ClickerView : MonoBehaviour
+	internal class ClickerView : TabPageView
 	{
 		[SerializeField]
 		TMP_Text CurrencyText;

@@ -4,6 +4,7 @@ using Assets.Views;
 using System.Collections;
 using UnityEngine;
 using Zenject;
+using static UIParticle;
 
 namespace Assets.Controllers.Tabs
 {
@@ -20,15 +21,40 @@ namespace Assets.Controllers.Tabs
 		[SerializeField]
 		GameSettings GameSettings;
 
-		const float ReleaseButtonAnimation = 0.2f;
+		[SerializeField] RectTransform ParticlesSpawnArea;
+		[SerializeField] private int amount = 20;
+		[SerializeField] private float lifetime = 1.5f;
+		[SerializeField] private float speed = 100f;
+		[SerializeField, Range(0f, 1f)] private float shrinkStart = 0.7f;
 
-		private Particles.Factory ParticlesFactory;
+		UIParticleFactory ParticleFactory;
 
 		[Inject]
-		public void Construct(Particles.Factory particleFactory)
+		public void Construct(UIParticleFactory factory)
 		{
-			ParticlesFactory = particleFactory;
+			ParticleFactory = factory;
 		}
+
+		public void SpawnParticles()
+		{
+			if (!ParticlesSpawnArea.gameObject.activeInHierarchy)
+				return;
+
+			for (int i = 0; i < amount; i++)
+			{
+				UIParticle particle = ParticleFactory.Create();
+
+				RectTransform rect = particle.GetComponent<RectTransform>();
+				rect.SetParent(ParticlesSpawnArea, false);
+				rect.anchoredPosition = Vector2.zero;
+				rect.localScale = Vector3.one;
+
+				Vector2 direction = Random.insideUnitCircle.normalized;
+				particle.Initialize(direction, speed, lifetime, shrinkStart);
+			}
+		}
+
+		const float ReleaseButtonAnimation = 0.2f;
 
 		void Awake()
 		{
@@ -43,7 +69,7 @@ namespace Assets.Controllers.Tabs
 			Model.SetCurrency(Model.Currency + GameSettings.CurrencyPerClick);
 			Model.SetEnergy(Model.Energy - GameSettings.ClickEnergyCost);
 
-			var particleInstance = ParticlesFactory.Create();
+			SpawnParticles();
 		}
 
 		private void ChangeButtonState(bool isPressed)

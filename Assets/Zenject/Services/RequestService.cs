@@ -30,7 +30,7 @@ namespace Assets.Services
 			}
 			catch (OperationCanceledException)
 			{
-				Debug.Log("operation cancelled");
+				Debug.Log("request cancelled");
 				return null;
 			}
 		}

@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using Assets.Views;
+using System;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.MVC.Views
@@ -11,13 +13,27 @@ namespace Assets.MVC.Views
 		[SerializeField]
 		TMP_Text Description;
 
-		public void SetPopupVisible(bool isVisible)
-		{
+		[SerializeField]
+		ButtonView OkButton;
 
+		public event Action OnOkClicked;
+
+		private void Awake()
+		{
+			OkButton.OnButtonClicked += () =>
+			{
+				OnOkClicked?.Invoke();
+			};
 		}
 
-		public void SetData(string title, string description)
+		public void HidePopup()
 		{
+			gameObject.SetActive(false);
+		}
+
+		public void ShowPopup(string title, string description)
+		{
+			gameObject.SetActive(true);
 			Title.text = title;
 			Description.text = description;
 		}

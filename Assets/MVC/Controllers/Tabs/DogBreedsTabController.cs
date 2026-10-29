@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using Zenject;
 
@@ -30,6 +29,9 @@ namespace Assets.Controllers.Tabs
 		[SerializeField]
 		DogBreedsView DogBreedsView;
 
+		[SerializeField]
+		DogBreedInfoView Popup;
+
 		private readonly DogBreedsModel Model = new();
 
 		private CancellationTokenSource _breedFetchCts;
@@ -37,6 +39,7 @@ namespace Assets.Controllers.Tabs
 		void Awake()
 		{
 			TabController.OnTabChanged += OnTabChanged;
+			Popup.OnOkClicked += Popup.HidePopup;
 		}
 
 		private void CreateDogBreedViews()
@@ -100,7 +103,8 @@ namespace Assets.Controllers.Tabs
 
 		private void ShowInfoPopup(DogBreedSchema fetchedData)
 		{
-			throw new NotImplementedException();
+			var attr = fetchedData.data.attributes;
+			Popup.ShowPopup(attr.name, attr.description);
 		}
 
 		private void OnTabChanged(TabPageView view)

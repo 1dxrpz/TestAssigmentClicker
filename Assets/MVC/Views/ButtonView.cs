@@ -5,54 +5,59 @@ using UnityEngine.UI;
 
 namespace Assets.Views
 {
-
 	[RequireComponent(typeof(RawImage))]
 	[RequireComponent(typeof(AudioSource))]
 	public class ButtonView : MonoBehaviour,
 		IPointerDownHandler,
-		IPointerUpHandler
+		IPointerUpHandler,
+		IPointerClickHandler
 	{
-		private RawImage RawImageComponent;
-		private AudioSource AudioSource;
+		private RawImage rawImage;
+		private AudioSource audioSource;
+		private bool isPressed;
 
-		[SerializeField] Texture Texture;
-		[SerializeField] Rect PressedOffset;
-		[SerializeField] Rect ReleasedOffset;
+		[SerializeField] private Texture Texture;
+		[SerializeField] private Rect PressedOffset;
+		[SerializeField] private Rect ReleasedOffset;
 
-		[SerializeField] AudioClip PressedAudio;
-		[SerializeField] AudioClip ReleasedAudio;
+		[SerializeField] private AudioClip PressedAudio;
+		[SerializeField] private AudioClip ReleasedAudio;
 
 		public event Action<bool> OnButtonStateChanged;
+		public event Action OnButtonClicked;
 
-		public void OnPointerDown(PointerEventData eventData)
+		private void Awake()
 		{
-			OnButtonStateChanged?.Invoke(true);
-		}
-
-		public void OnPointerUp(PointerEventData eventData)
-		{
-			OnButtonStateChanged?.Invoke(false);
-		}
-
-		protected void Start()
-		{
-			RawImageComponent = GetComponent<RawImage>();
-			AudioSource = GetComponent<AudioSource>();
-		}
-
-		protected void OnValidate()
-		{
-			if (RawImageComponent == null)
-				RawImageComponent = GetComponent<RawImage>();
+			rawImage = GetComponent<RawImage>();
+			audioSource = GetComponent<AudioSource>();
 
 			if (Texture != null)
-				RawImageComponent.texture = Texture;
+				rawImage.texture = Texture;
 		}
 
-		public void SetPressed(bool isPressed)
+		public void OnPointerClick(PointerEventData eventData) => OnButtonClicked?.Invoke();
+
+		public void OnPointerDown(PointerEventData eventData) => OnButtonStateChanged?.Invoke(true);
+
+		public void OnPointerUp(PointerEventData eventData) => OnButtonStateChanged?.Invoke(false);
+
+		public void SetPressed(bool pressed)
 		{
-			RawImageComponent.uvRect = isPressed ? PressedOffset : ReleasedOffset;
-			AudioSource.PlayOneShot(isPressed ? PressedAudio : ReleasedAudio);
+			if (isPressed == pressed)
+				return;
+
+			isPressed = pressed;
+
+			rawImage.uvRect = pressed
+				? PressedOffset
+				: ReleasedOffset;
+
+			AudioClip clip = pressed
+				? PressedAudio
+				: ReleasedAudio;
+
+			if (clip != null)
+				audioSource.PlayOneShot(clip);
 		}
 	}
 }

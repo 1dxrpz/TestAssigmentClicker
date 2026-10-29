@@ -15,7 +15,7 @@ MonoBehaviour:
   ForecastAPI: https://api.weather.gov/gridpoints/TOP/32,81/forecast
   DogAPI:
     Base: https://dogapi.dog/api/v2
-    DogBreeds: /breeds?page[size]=1
+    DogBreeds: /breeds?page[size]=10
     DogBreedId: /breeds/{id}
     RandomFact: /facts
   MaxEnergy: 1000

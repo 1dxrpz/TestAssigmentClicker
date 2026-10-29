@@ -51,9 +51,9 @@ namespace Assets.Controllers.Tabs
 
 		void StartPage()
 		{
+			ForecastView.SetLoadingCircleVisible(true);
 			CancellationToken = new();
 			_ = RepeatSeconds(2.0f, CancellationToken.Token);
-			ForecastView.SetLoadingCircleVisible(true);
 		}
 
 		void OnDestroy()
@@ -92,6 +92,10 @@ namespace Assets.Controllers.Tabs
 
 					Model.UpdateForecastIcon(period.icon, sprite);
 				}
+			}
+			catch (OperationCanceledException)
+			{
+				Debug.Log("RequestForecast cancelled");
 			}
 			catch (Exception ex)
 			{

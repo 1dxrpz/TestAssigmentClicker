@@ -1,12 +1,15 @@
 ﻿using Assets.Controllers.Interfaces;
 using Assets.MVC.Controllers.JSONSchemas;
 using Assets.MVC.Models;
+using Assets.MVC.Views;
 using Assets.Services.Interfaces;
 using Assets.Views;
+using System;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using Zenject;
 
@@ -29,18 +32,68 @@ namespace Assets.Controllers.Tabs
 
 		private readonly DogBreedsModel Model = new();
 
+		private CancellationTokenSource _breedFetchCts;
+
 		void Awake()
 		{
-			Model.OnDogBreedsFetched += CreateDogBreedViews;
+			TabController.OnTabChanged += OnTabChanged;
 		}
 
 		private void CreateDogBreedViews()
 		{
 			Model.DogBreeds.Select((v, i) =>
 			{
-				DogBreedsView.CreateDogBreedView(i + 1, v.attributes.name);
+				var breed = DogBreedsView.CreateDogBreedView(i + 1, v.attributes.name);
+				breed.SetLoadingCircleVisible(false);
+				breed.OnDogBreedClicked += () =>
+				{
+					OnDogBreedClicked(breed, v);
+				};
+
 				return v;
 			}).ToList();
+		}
+
+		private void OnDogBreedClicked(DogBreedView breed, DogData data)
+		{
+			_ = FetchDogBreed(breed, data);
+		}
+
+		private async Task FetchDogBreed(DogBreedView breed, DogData data)
+		{
+			_breedFetchCts?.Cancel();
+			_breedFetchCts?.Dispose();
+
+			_breedFetchCts = new CancellationTokenSource();
+			var token = _breedFetchCts.Token;
+
+			breed.SetLoadingCircleVisible(true);
+
+			try
+			{
+				await Awaitable.WaitForSecondsAsync(2, token);
+
+				token.ThrowIfCancellationRequested();
+
+				Debug.Log(data.attributes.name);
+				Debug.Log(data.attributes.description);
+			}
+			catch (OperationCanceledException)
+			{
+				breed.SetLoadingCircleVisible(false);
+				Debug.Log("Dog breed fetch canceled");
+			}
+			catch (Exception ex)
+			{
+				Debug.LogException(ex);
+			}
+			finally
+			{
+				if (_breedFetchCts != null && !token.IsCancellationRequested)
+				{
+					breed.SetLoadingCircleVisible(false);
+				}
+			}
 		}
 
 		private void OnTabChanged(TabPageView view)
@@ -51,6 +104,9 @@ namespace Assets.Controllers.Tabs
 			}
 			else
 			{
+				_breedFetchCts?.Cancel();
+
+				DogBreedsView.ClearDogBreedViews();
 				CancellationToken?.Cancel();
 			}
 		}
@@ -58,11 +114,22 @@ namespace Assets.Controllers.Tabs
 		private async Awaitable StartPage()
 		{
 			CancellationToken = new();
-			Debug.Log(0);
-			var breeds = await GetBreeds(CancellationToken);
-			Debug.Log(1);
-			Model.SetDogBreeds(breeds.data);
-			Debug.Log(2);
+			DogBreedsView.SetLoadingCircleVisible(true);
+
+			try
+			{
+				var breeds = await GetBreeds(CancellationToken);
+				Model.SetDogBreeds(breeds.data);
+			}
+			catch (Exception ex)
+			{
+				Debug.LogException(ex);
+			}
+			finally
+			{
+				DogBreedsView.SetLoadingCircleVisible(false);
+				CreateDogBreedViews();
+			}
 		}
 
 		public async Task<string> GetRandomFact(CancellationTokenSource tokenSource)

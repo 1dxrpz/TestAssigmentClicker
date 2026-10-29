@@ -1,6 +1,8 @@
 using Assets.MVC.Views;
-using TMPro;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 using static Assets.MVC.Views.DogBreedView;
 
@@ -8,30 +10,47 @@ namespace Assets.Views
 {
 	internal class DogBreedsView : TabPageView
 	{
-		[SerializeField]
-		CanvasGroup RandomFactLoading;
-
-		[SerializeField]
-		TMP_Text FactText;
-
 		[SerializeField] RectTransform ContentArea;
 
 		[Inject]
 		DogBreedViewFactory DogBreedViewFactory;
 
-		public void CreateDogBreedView(int index, string name)
+		[SerializeField]
+		GameObject LoadingCircle;
+
+		[SerializeField]
+		GameObject DogBreedsWrapper;
+
+		List<DogBreedView> DogBreedViews = new();
+
+		public void ClearDogBreedViews()
 		{
-			if (!ContentArea.gameObject.activeInHierarchy)
-				return;
+			foreach (var item in DogBreedViews)
+			{
+				Destroy(item.gameObject);
+			}
+			DogBreedViews.Clear();
+		}
 
-			DogBreedView BreedView = DogBreedViewFactory.Create();
+		public DogBreedView CreateDogBreedView(int index, string name)
+		{
+			DogBreedView breedView = DogBreedViewFactory.Create();
 
-			RectTransform rect = BreedView.GetComponent<RectTransform>();
+			RectTransform rect = breedView.GetComponent<RectTransform>();
 			rect.SetParent(ContentArea, false);
 			rect.anchoredPosition = Vector2.zero;
 			rect.localScale = Vector3.one;
 
-			BreedView.SetData(index, name);
+			breedView.SetData(index, name);
+			DogBreedViews.Add(breedView);
+
+			return breedView;
+		}
+
+		public void SetLoadingCircleVisible(bool isVisible)
+		{
+			LoadingCircle.SetActive(isVisible);
+			DogBreedsWrapper.SetActive(!isVisible);
 		}
 	}
 }

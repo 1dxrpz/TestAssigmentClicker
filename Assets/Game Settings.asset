@@ -15,7 +15,7 @@ MonoBehaviour:
   ForecastAPI: https://api.weather.gov/gridpoints/TOP/32,81/forecast
   DogAPI: 
   MaxEnergy: 1000
-  StartEnergy: 0
+  StartEnergy: 50
   EnergyAutogainAmount: 10
   EnergyAutogainDuration: 10
   AutoclickDuration: 3

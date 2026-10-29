@@ -3,6 +3,7 @@ using Assets.Models;
 using Assets.Views;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Controllers.Tabs
 {
@@ -21,20 +22,28 @@ namespace Assets.Controllers.Tabs
 
 		const float ReleaseButtonAnimation = 0.2f;
 
+		private Particles.Factory ParticlesFactory;
+
+		[Inject]
+		public void Construct(Particles.Factory particleFactory)
+		{
+			ParticlesFactory = particleFactory;
+		}
+
 		void Awake()
 		{
 			Model.OnCurrencyChanged += UpdateCurrency;
 			Model.OnEnergyChanged += UpdateEnergy;
-
 			ButtonView.OnButtonStateChanged += ChangeButtonState;
-
 			Model.OnButtonClicked += OnButtonClicked;
 		}
 
 		private void OnButtonClicked()
 		{
 			Model.SetCurrency(Model.Currency + GameSettings.CurrencyPerClick);
-			Model.SetEnergy(Model.MaxEnergy - GameSettings.ClickEnergyCost);
+			Model.SetEnergy(Model.Energy - GameSettings.ClickEnergyCost);
+
+			var particleInstance = ParticlesFactory.Create();
 		}
 
 		private void ChangeButtonState(bool isPressed)

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a21812c16f59c341a453d317d780753, type: 3}
+  m_Name: Prefab Registry
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Resources.ScriptableObjects.PrefabRegistry
+  particlePrefab: {fileID: 7482010661486526216, guid: 16eec1fbb40e9c04a8e63e04883be0ce, type: 3}
+  dogBreedViewPrefab: {fileID: 0}

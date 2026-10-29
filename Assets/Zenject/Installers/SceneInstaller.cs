@@ -1,9 +1,12 @@
 using Assets.Controllers;
 using Assets.Controllers.Tabs;
+using Assets.MVC.Views;
+using Assets.Resources.ScriptableObjects;
 using Assets.Services;
 using Assets.Services.Interfaces;
 using UnityEngine;
 using Zenject;
+using static Assets.MVC.Views.DogBreedView;
 using static UIParticle;
 
 namespace Assets.Installers
@@ -11,7 +14,7 @@ namespace Assets.Installers
 	public class SceneInstaller : MonoInstaller
 	{
 		[SerializeField]
-		UIParticle ParticlePrefab;
+		PrefabRegistry PrefabRegistry;
 
 		public override void InstallBindings()
 		{
@@ -27,7 +30,10 @@ namespace Assets.Installers
 			;
 
 			Container.BindFactory<UIParticle, UIParticleFactory>()
-				.FromComponentInNewPrefab(ParticlePrefab);
+				.FromComponentInNewPrefab(PrefabRegistry.ParticlePrefab);
+
+			Container.BindFactory<DogBreedView, DogBreedViewFactory>()
+				.FromComponentInNewPrefab(PrefabRegistry.DogBreedViewPrefab);
 		}
 	}
 }

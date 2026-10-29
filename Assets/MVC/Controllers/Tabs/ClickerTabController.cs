@@ -27,13 +27,8 @@ namespace Assets.Controllers.Tabs
 		[SerializeField] private float speed = 100f;
 		[SerializeField, Range(0f, 1f)] private float shrinkStart = 0.7f;
 
-		UIParticleFactory ParticleFactory;
-
 		[Inject]
-		public void Construct(UIParticleFactory factory)
-		{
-			ParticleFactory = factory;
-		}
+		UIParticleFactory ParticleFactory;
 
 		public void SpawnParticles()
 		{
@@ -50,7 +45,7 @@ namespace Assets.Controllers.Tabs
 				rect.localScale = Vector3.one;
 
 				Vector2 direction = Random.insideUnitCircle.normalized;
-				particle.Initialize(direction, speed, lifetime, shrinkStart);
+				particle.Spawn(direction, speed, lifetime, shrinkStart);
 			}
 		}
 

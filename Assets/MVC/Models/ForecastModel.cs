@@ -11,8 +11,6 @@ namespace Assets.Models
 		public Sprite Icon { get; private set; }
 		public string Text { get; private set; }
 
-		public event Action OnForecastFetched;
-
 		public void UpdateForecastIcon(string iconUri, Sprite icon)
 		{
 			Icon = icon;
@@ -22,11 +20,6 @@ namespace Assets.Models
 		public void UpdateForecastText(string text)
 		{
 			Text = text;
-		}
-
-		public void FetchForecastData()
-		{
-			OnForecastFetched?.Invoke();
 		}
 	}
 }

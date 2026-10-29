@@ -34,7 +34,6 @@ namespace Assets.Controllers.Tabs
 
 		void Awake()
 		{
-			Model.OnForecastFetched += OnForecastFetched;
 			TabController.OnTabChanged += OnTabChanged;
 		}
 
@@ -43,7 +42,8 @@ namespace Assets.Controllers.Tabs
 			if (view.GetType() == typeof(ForecastView))
 			{
 				StartPage();
-			} else
+			}
+			else
 			{
 				CancellationToken?.Cancel();
 			}
@@ -64,35 +64,44 @@ namespace Assets.Controllers.Tabs
 
 		async Task RequestForecast(CancellationToken token)
 		{
-			var request = await RequestService
-				.SendRequest(GameSettings.ForecastAPI, token);
-
-			token.ThrowIfCancellationRequested();
-
-			var res = JsonSerializer.Deserialize<ForecastSchema>(request);
-
-			if (res == null)
-				return;
-
-			var period = res.properties.periods.First();
-
-			Model.UpdateForecastText($"{period.name}: {period.temperature}{period.temperatureUnit}");
-
-			if (!string.Equals(Model.IconUri, period.icon, StringComparison.OrdinalIgnoreCase))
+			try
 			{
-				var sprite = await RequestService
-					.DownloadImage(period.icon, token);
+				var request = await RequestService.SendRequest(
+					GameSettings.ForecastAPI,
+					token
+				);
 
-				Model.UpdateForecastIcon(period.icon, sprite);
+				token.ThrowIfCancellationRequested();
+
+				var res = await Task.Run(
+					() => JsonSerializer.Deserialize<ForecastSchema>(request),
+					token
+				);
+
+				if (res == null)
+					return;
+
+				var period = res.properties.periods.First();
+
+				Model.UpdateForecastText($"{period.name}: {period.temperature}{period.temperatureUnit}");
+
+				if (!string.Equals(Model.IconUri, period.icon, StringComparison.OrdinalIgnoreCase))
+				{
+					var sprite = await RequestService
+						.DownloadImage(period.icon, token);
+
+					Model.UpdateForecastIcon(period.icon, sprite);
+				}
 			}
-
-			Model.FetchForecastData();
-		}
-
-		private void OnForecastFetched()
-		{
-			ForecastView.SetLoadingCircleVisible(false);
-			ForecastView.UpdateData(Model);
+			catch (Exception ex)
+			{
+				Debug.LogException(ex);
+			}
+			finally
+			{
+				ForecastView.SetLoadingCircleVisible(false);
+				ForecastView.UpdateData(Model);
+			}
 		}
 
 		private async Awaitable RepeatSeconds(float seconds, CancellationToken token)

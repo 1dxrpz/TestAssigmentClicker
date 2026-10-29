@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Prefab Registry
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Resources.ScriptableObjects.PrefabRegistry
   particlePrefab: {fileID: 7482010661486526216, guid: 16eec1fbb40e9c04a8e63e04883be0ce, type: 3}
-  dogBreedViewPrefab: {fileID: 0}
+  dogBreedViewPrefab: {fileID: 6668264102567353275, guid: ea356d0e12652ad4fad363cc88556052, type: 3}

@@ -18,7 +18,7 @@ public class UIParticle : MonoBehaviour
 		RectTransformComponent = GetComponent<RectTransform>();
 	}
 
-	public void Initialize(Vector2 direction, float speed, float lifetime, float shrinkStart)
+	public void Spawn(Vector2 direction, float speed, float lifetime, float shrinkStart)
 	{
 		Direction = direction;
 		Speed = speed;

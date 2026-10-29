@@ -1,6 +1,8 @@
 ﻿using Assets.Controllers.Interfaces;
 using Assets.MVC.Controllers.JSONSchemas;
+using Assets.MVC.Models;
 using Assets.Services.Interfaces;
+using Assets.Views;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
@@ -17,6 +19,51 @@ namespace Assets.Controllers.Tabs
 
 		[Inject]
 		IRequestService RequestService;
+
+		[Inject]
+		TabController TabController;
+		private CancellationTokenSource CancellationToken;
+
+		[SerializeField]
+		DogBreedsView DogBreedsView;
+
+		private readonly DogBreedsModel Model = new();
+
+		void Awake()
+		{
+			Model.OnDogBreedsFetched += CreateDogBreedViews;
+		}
+
+		private void CreateDogBreedViews()
+		{
+			Model.DogBreeds.Select((v, i) =>
+			{
+				DogBreedsView.CreateDogBreedView(i + 1, v.attributes.name);
+				return v;
+			}).ToList();
+		}
+
+		private void OnTabChanged(TabPageView view)
+		{
+			if (view.GetType() == typeof(DogBreedsView))
+			{
+				_ = StartPage();
+			}
+			else
+			{
+				CancellationToken?.Cancel();
+			}
+		}
+
+		private async Awaitable StartPage()
+		{
+			CancellationToken = new();
+			Debug.Log(0);
+			var breeds = await GetBreeds(CancellationToken);
+			Debug.Log(1);
+			Model.SetDogBreeds(breeds.data);
+			Debug.Log(2);
+		}
 
 		public async Task<string> GetRandomFact(CancellationTokenSource tokenSource)
 		{

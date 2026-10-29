@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assets.Models
+namespace Assets.MVC.Controllers.JSONSchemas
 {
 	[Serializable]
 	public class Period
@@ -24,7 +24,7 @@ namespace Assets.Models
 	}
 
 	[Serializable]
-	public class ForecastData
+	public class ForecastSchema
 	{
 		public Properties properties { get; set; }
 	}

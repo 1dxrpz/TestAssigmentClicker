@@ -1,5 +1,6 @@
 ﻿using Assets.Controllers.Interfaces;
 using Assets.Models;
+using Assets.MVC.Controllers.JSONSchemas;
 using Assets.Services.Interfaces;
 using Assets.Views;
 using System;
@@ -68,12 +69,10 @@ namespace Assets.Controllers.Tabs
 
 			token.ThrowIfCancellationRequested();
 
-			var res = JsonSerializer.Deserialize<ForecastData>(request);
+			var res = JsonSerializer.Deserialize<ForecastSchema>(request);
 
 			if (res == null)
-			{
 				return;
-			}
 
 			var period = res.properties.periods.First();
 

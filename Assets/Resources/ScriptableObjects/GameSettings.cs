@@ -1,10 +1,20 @@
+using System;
 using UnityEngine;
+
+[Serializable]
+public class ApiEndpoints
+{
+    public string Base;
+    public string DogBreeds;
+    public string DogBreedId;
+    public string RandomFact;
+}
 
 [CreateAssetMenu(fileName = "GameSettings", menuName = "Project Settings/Game Settings")]
 public class GameSettings : ScriptableObject
 {
     public string ForecastAPI;
-    public string DogAPI;
+    public ApiEndpoints DogAPI = new();
 
     public int MaxEnergy;
     public int StartEnergy;

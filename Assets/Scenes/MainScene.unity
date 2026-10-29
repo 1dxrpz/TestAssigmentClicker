@@ -330,7 +330,7 @@ Transform:
   m_GameObject: {fileID: 198080369}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11, y: 249, z: 0}
+  m_LocalPosition: {x: 11, y: 32.999985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -712,7 +712,7 @@ Transform:
   m_GameObject: {fileID: 471339877}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 201, z: 0}
+  m_LocalPosition: {x: 10, y: -15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1102,7 +1102,7 @@ Transform:
   m_GameObject: {fileID: 766986798}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11, y: 410, z: 0}
+  m_LocalPosition: {x: 11, y: 193.99998, z: 0}
   m_LocalScale: {x: 1, y: 0.5594719, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1161,7 +1161,7 @@ Transform:
   m_GameObject: {fileID: 818913442}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 39, z: 0}
+  m_LocalPosition: {x: 3, y: -177.00002, z: 0}
   m_LocalScale: {x: 1, y: 0.74998003, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1307,7 +1307,7 @@ Transform:
   m_GameObject: {fileID: 872332471}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13, y: 373.161, z: 0}
+  m_LocalPosition: {x: 13, y: 157.161, z: 0}
   m_LocalScale: {x: 1, y: 0.5594719, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1563,7 +1563,7 @@ Transform:
   m_GameObject: {fileID: 996357712}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: -54.293003, z: 0}
+  m_LocalPosition: {x: 6, y: -270.29303, z: 0}
   m_LocalScale: {x: 1, y: 0.74998003, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1598,6 +1598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc12af5796010e14db366a5b40aad718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Controllers.Tabs.DogBreedsTabController
+  GameSettings: {fileID: 0}
 --- !u!4 &1027662581
 Transform:
   m_ObjectHideFlags: 0
@@ -1607,7 +1608,7 @@ Transform:
   m_GameObject: {fileID: 1027662579}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: -7.314402, z: 0}
+  m_LocalPosition: {x: 6, y: -223.31442, z: 0}
   m_LocalScale: {x: 1, y: 0.74998003, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2371,7 +2372,7 @@ Transform:
   m_GameObject: {fileID: 1681933879}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 78.81301, z: 0}
+  m_LocalPosition: {x: 6, y: -137.18701, z: 0}
   m_LocalScale: {x: 1, y: 0.74998003, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
